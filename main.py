@@ -7,7 +7,7 @@ import tkinter as tk
 with open("wordle_answers.json", "r") as f:
     word_list = json.load(f)
 
-# Generate a random word that the player has to guess and make it into a list
+
 hidden_word = random.choice(word_list).upper()
 hidden_list = list(hidden_word)
 last_click = {"x": None, "y": None}
@@ -39,13 +39,12 @@ def main():
 
     input_cells(canvas)
     canvas.create_text(CANVAS_WIDTH/2, MARGIN_TOP/2, text="Guess the word", font=("Helvetica",16), fill="#CEDFE7", tags="Guess")
-    # Appoarch: To make a dictionary that stores information about each letter and its rectangle coordinates. Chatgpt suggestion: Make it into branches like grasshopper
-    # so under each branch - stores information for each letter
+
     global letter_info_by_row_dict
 
     letter_info_by_row_dict = qwerty_keyboard(canvas)
 
-    # bind left-mouse-button clicks
+
     canvas.bind("<Button-1>", lambda myevent: on_click(myevent, canvas))
     
    
@@ -117,7 +116,7 @@ def game_start(canvas):
     canvas.create_text(CANVAS_WIDTH/2, MARGIN_TOP/2, text="Guess the word", font=("Helvetica",16), fill="#CEDFE7", tags="Guess")
     game_over = False
 
-# the on click event needs to understand its on the canvas, so we need to pass canvas    
+ 
 def on_click(event, canvas):
     global letter_info_by_row_dict
 
@@ -221,10 +220,7 @@ def clear_cell(canvas):
 def game_logic(canvas):
     global player_guess, current_row, current_column
     
-    # Compare the two lists - 1: If any of the 5 inputs match any of the 5 letters in the list (Colour yellow)
-    #                         2: If the index of any of the five inputs + the letter matches against the index + letter of the random list (Colour green)
-  
-    # keep a count of letters to track repeated letters in a word of the hidden list
+
     hidden_word_dict = {}
     for letter_hidden_list in hidden_list:
         if letter_hidden_list not in hidden_word_dict:
@@ -244,7 +240,7 @@ def game_logic(canvas):
     for idx, letter_player_guess in enumerate(player_guess):
             
         if letter_player_guess in hidden_word_dict:
-            # Now at this stage we need to check the count of the letters for each letter and then compare for yellow
+
             letter_count_hidden_word_dict = hidden_word_dict[letter_player_guess] # if we start with "p" in poppy this is searching for how many times "p" occurs in apple
             letter_count_guess_word_dict = guess_word_dict[letter_player_guess] # this is searching for how many times "p" occurs in poppy
             
